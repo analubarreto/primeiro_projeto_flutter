@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:primeiro_projeto/Data/task_inherited.dart';
+import 'package:primeiro_projeto/data/task_inherited.dart';
 
 class InitialScreen extends StatefulWidget {
 
@@ -19,11 +19,12 @@ class _InitialScreenState extends State<InitialScreen> {
         title: const Text('Tarefas'),
       ),
       body: ListView(
-        children: TaskInherited.of(context).taskList
+        children: TaskInherited.of(context).taskList,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushReplacementNamed('/form', arguments: context);
+          List<BuildContext> arguments = [context];
+          Navigator.of(context).pushNamed('/form', arguments: arguments);
         },
         child: const Icon(Icons.add),
       ),

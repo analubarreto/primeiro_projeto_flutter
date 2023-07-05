@@ -20,18 +20,10 @@ class MyApp extends StatelessWidget {
       home: TaskInherited(
         child: const InitialScreen(),
       ),
-      initialRoute: '/initial',
+      initialRoute: '/',
       routes: {
-        '/initial': (newContext) => const InitialScreen(),
-        '/form': (newContext) => TaskInherited(child: FormScreen(newContext)),
+        '/form': (newContext) => FormScreen(newContext),
       }
     );
   }
 }
-
-
-
-
-
-
-
