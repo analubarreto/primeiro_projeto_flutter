@@ -23,8 +23,7 @@ class _InitialScreenState extends State<InitialScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          List<BuildContext> arguments = [context];
-          Navigator.of(context).pushNamed('/form', arguments: arguments);
+          Navigator.of(context).pushNamed('/form');
         },
         child: const Icon(Icons.add),
       ),

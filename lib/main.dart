@@ -12,19 +12,19 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return TaskInherited(
+      child: MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         useMaterial3: true,
         primarySwatch: Colors.deepPurple,
       ),
-      home: TaskInherited(
-        child: const InitialScreen(),
-      ),
       initialRoute: '/',
       routes: {
-        '/form': (newContext) => FormScreen(newContext),
+        '/': (context) => const InitialScreen(),
+        '/form': (context) => const FormScreen(),
       }
+    ),
     );
   }
 }
