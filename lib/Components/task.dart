@@ -6,15 +6,17 @@ class Task extends StatefulWidget {
   final String photo;
   final int difficulty;
 
-  const Task(this.name, this.photo, this.difficulty, {Key? key})
+  Task(this.name, this.photo, this.difficulty, {Key? key})
       : super(key: key);
+
+  int level = 0;
 
   @override
   State<Task> createState() => _TaskState();
 }
 
 class _TaskState extends State<Task> {
-  int nivel = 0;
+  bool assetOrNetwork() => widget.photo.contains('http');
 
   @override
   Widget build(BuildContext context) {
@@ -55,10 +57,9 @@ class _TaskState extends State<Task> {
                       height: 100,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(4),
-                        child: Image.asset(
-                          widget.photo,
-                          fit: BoxFit.cover,
-                        ),
+                        child: assetOrNetwork() ?
+                        Image.network(widget.photo, fit: BoxFit.cover,) :
+                        Image.asset(widget.photo, fit: BoxFit.cover,),
                       ),
                     ),
                     Padding(
@@ -88,9 +89,7 @@ class _TaskState extends State<Task> {
                              child: IconButton(
                                onPressed: () {
                                  setState(() {
-                                   if (nivel < widget.difficulty * 10) {
-                                     nivel += 1;
-                                   }
+                                   if (widget.level < widget.difficulty * 10) widget.level += 1;
                                  });
                                },
                                icon: const Icon(Icons.arrow_drop_up),
@@ -122,7 +121,7 @@ class _TaskState extends State<Task> {
                       child: LinearProgressIndicator(
                         color: Colors.greenAccent,
                         value: (widget.difficulty > 0)
-                            ? (nivel / widget.difficulty) / 10
+                            ? (widget.level / widget.difficulty) / 10
                             : 1,
                       ),
                     ),
@@ -130,7 +129,7 @@ class _TaskState extends State<Task> {
                   Padding(
                     padding: const EdgeInsets.all(12),
                     child: Text(
-                      'Nivel: $nivel',
+                      'Nivel: ${widget.level}',
                       style: const TextStyle(color: Colors.white, fontSize: 16),
                     ),
                   )

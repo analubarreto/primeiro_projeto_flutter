@@ -16,6 +16,9 @@ class _FormScreenState extends State<FormScreen> {
 
   final _formKey = GlobalKey<FormState>();
 
+  bool isNullOrEmpty(String? value) => value != null && value.isEmpty;
+  bool difficultyValidator(String? value) => value != null && int.parse(value) > 5 && int.parse(value) < 1;
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -40,9 +43,7 @@ class _FormScreenState extends State<FormScreen> {
                          padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                          child: TextFormField(
                            validator: (String? value) {
-                             if (value != null && value.isEmpty) {
-                               return 'Insira o nome da Tarefa';
-                             }
+                             if (isNullOrEmpty(value)) return 'Insira o nome da Tarefa';
                              return null;
                            },
                            controller: nameController,
@@ -57,11 +58,7 @@ class _FormScreenState extends State<FormScreen> {
                          padding: const EdgeInsets.only(bottom: 20, left: 10, right: 10),
                          child: TextFormField(
                            validator: (value) {
-                             if (value!.isEmpty ||
-                                 int.parse(value) > 5 ||
-                                 int.parse(value) < 1) {
-                               return 'Insira um Dificuldade entre 1 e 5';
-                             }
+                             if (difficultyValidator(value)) return 'Insira um Dificuldade entre 1 e 5';
                              return null;
                            },
                            keyboardType: TextInputType.number,
@@ -80,9 +77,7 @@ class _FormScreenState extends State<FormScreen> {
                              setState(() {});
                            },
                            validator: (value){
-                             if(value!.isEmpty){
-                               return 'Insira um URL de Imagem!';
-                             }
+                             if(isNullOrEmpty(value)) return 'Insira um URL de Imagem!';
                              return null;
                            },
                            keyboardType: TextInputType.url,
