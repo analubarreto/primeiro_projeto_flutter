@@ -24,7 +24,7 @@ class _TaskState extends State<Task> {
         children: [
           Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4), color: Colors.deepPurple),
+                borderRadius: BorderRadius.circular(4), color: Colors.deepPurple[300]),
             height: 140,
           ),
           Column(
@@ -33,6 +33,14 @@ class _TaskState extends State<Task> {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
                   color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 2,
+                      blurRadius: 4,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
                 ),
                 height: 100,
                 child: Row(
@@ -53,45 +61,54 @@ class _TaskState extends State<Task> {
                         ),
                       ),
                     ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                            width: 200,
-                            child: Text(
-                              widget.name,
-                              style: const TextStyle(
-                                fontSize: 24,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            )),
-                        Difficulty(dificultyLevel: widget.difficulty,
+                    Padding(
+                        padding: const EdgeInsets.only(right: 10.0),
+                        child: Row(
+                         children: [
+                           Column(
+                             mainAxisAlignment: MainAxisAlignment.center,
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             children: [
+                               SizedBox(
+                                   width: 200,
+                                   child: Text(
+                                     widget.name,
+                                     style: const TextStyle(
+                                       fontSize: 20,
+                                       overflow: TextOverflow.ellipsis,
+                                     ),
+                                   )),
+                               Difficulty(dificultyLevel: widget.difficulty,
+                               ),
+                             ],
+                           ),
+                           SizedBox(
+                             height: 52,
+                             width: 52,
+                             child: IconButton(
+                               onPressed: () {
+                                 setState(() {
+                                   if (nivel < widget.difficulty * 10) {
+                                     nivel += 1;
+                                   }
+                                 });
+                               },
+                               icon: const Icon(Icons.arrow_drop_up),
+                               color: Colors.green,
+                               style: ButtonStyle(
+                                 backgroundColor:
+                                     MaterialStateProperty.all(Colors.green[100]),
+                                 shape: MaterialStateProperty.all(
+                                   RoundedRectangleBorder(
+                                     borderRadius: BorderRadius.circular(15),
+                                   ),
+                                 ),
+                               ),
+                             ),
+                           )
+                         ],
                         ),
-                      ],
                     ),
-                    SizedBox(
-                      height: 52,
-                      width: 52,
-                      child: ElevatedButton(
-                          onPressed: () {
-                            setState(() {
-                              nivel++;
-                            });
-                            // print(nivel);
-                          },
-                          child: const Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Icon(Icons.arrow_drop_up),
-                              Text(
-                                'UP',
-                                style: TextStyle(fontSize: 12),
-                              )
-                            ],
-                          )),
-                    )
                   ],
                 ),
               ),
@@ -103,7 +120,7 @@ class _TaskState extends State<Task> {
                     child: SizedBox(
                       width: 200,
                       child: LinearProgressIndicator(
-                        color: Colors.white,
+                        color: Colors.greenAccent,
                         value: (widget.difficulty > 0)
                             ? (nivel / widget.difficulty) / 10
                             : 1,
