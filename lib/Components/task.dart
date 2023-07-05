@@ -24,7 +24,7 @@ class _TaskState extends State<Task> {
         children: [
           Container(
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(4), color: Colors.blue),
+                borderRadius: BorderRadius.circular(4), color: Colors.deepPurple),
             height: 140,
           ),
           Column(

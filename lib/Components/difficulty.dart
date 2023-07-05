@@ -12,34 +12,14 @@ class Difficulty extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<Widget> stars = List.generate(5, (index) => Icon(
+      Icons.star,
+      size: 15,
+      color: (dificultyLevel >= index + 1) ? Colors.deepPurple : Colors.deepPurple[100],
+    ));
+
     return Row(
-      children: [
-        Icon(
-          Icons.star,
-          size: 15,
-          color: (dificultyLevel >= 1) ? Colors.blue : Colors.blue[100],
-        ),
-        Icon(
-          Icons.star,
-          size: 15,
-          color: (dificultyLevel >= 2) ? Colors.blue : Colors.blue[100],
-        ),
-        Icon(
-          Icons.star,
-          size: 15,
-          color: (dificultyLevel >= 3) ? Colors.blue : Colors.blue[100],
-        ),
-        Icon(
-          Icons.star,
-          size: 15,
-          color: (dificultyLevel >= 4) ? Colors.blue : Colors.blue[100],
-        ),
-        Icon(
-          Icons.star,
-          size: 15,
-          color: (dificultyLevel >= 5) ? Colors.blue : Colors.blue[100],
-        ),
-      ],
+      children: stars,
     );
   }
 }
