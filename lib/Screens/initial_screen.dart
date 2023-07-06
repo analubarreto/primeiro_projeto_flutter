@@ -29,7 +29,7 @@ class _InitialScreenState extends State<InitialScreen> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 SizedBox(
-                  width: 200,
+                  width: 180,
                   child: LinearProgressIndicator(
                     color: Colors.deepPurple,
                     value: taskInherited.totalLevel / 100,
