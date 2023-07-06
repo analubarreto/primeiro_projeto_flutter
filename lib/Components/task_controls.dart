@@ -40,10 +40,10 @@ class _TaskControlsState extends State<TaskControls> {
          IconButton(
            onPressed: () => widget.level > 0 ? widget.onLevelDown() : null,
            icon: const Icon(Icons.arrow_drop_down),
-           color: Colors.green,
+           color: Colors.redAccent,
            style: ButtonStyle(
              backgroundColor:
-                 MaterialStateProperty.all(Colors.green[100]),
+                 MaterialStateProperty.all(Colors.redAccent[100]),
              shape: MaterialStateProperty.all(
                RoundedRectangleBorder(
                  borderRadius: BorderRadius.circular(8),
