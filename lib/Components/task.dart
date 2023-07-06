@@ -54,7 +54,7 @@ class _TaskState extends State<Task> {
                         borderRadius: BorderRadius.circular(4),
                         color: Colors.black26,
                       ),
-                      width: 72,
+                      width: 100,
                       height: 100,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(4),
@@ -76,12 +76,12 @@ class _TaskState extends State<Task> {
                                    child: Text(
                                      widget.name,
                                      style: const TextStyle(
-                                       fontSize: 20,
+                                       fontSize: 16,
                                        overflow: TextOverflow.ellipsis,
                                      ),
-                                   )),
-                               Difficulty(dificultyLevel: widget.difficulty,
+                                   ),
                                ),
+                               Difficulty(dificultyLevel: widget.difficulty),
                              ],
                            ),
                           TaskControls(
