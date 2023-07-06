@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:primeiro_projeto/Components/task_controls.dart';
 import 'package:primeiro_projeto/components/difficulty.dart';
 import 'package:primeiro_projeto/data/task_inherited.dart';
 
@@ -83,31 +84,22 @@ class _TaskState extends State<Task> {
                                ),
                              ],
                            ),
-                           SizedBox(
-                             height: 52,
-                             width: 52,
-                             child: IconButton(
-                               onPressed: () {
-                                 setState(() {
-                                   if (widget.level < widget.difficulty * 10) {
-                                      widget.level += 1;
-                                      TaskInherited.of(context).updateLevel(widget.level);
-                                   }
-                                });
-                               },
-                               icon: const Icon(Icons.arrow_drop_up),
-                               color: Colors.green,
-                               style: ButtonStyle(
-                                 backgroundColor:
-                                     MaterialStateProperty.all(Colors.green[100]),
-                                 shape: MaterialStateProperty.all(
-                                   RoundedRectangleBorder(
-                                     borderRadius: BorderRadius.circular(15),
-                                   ),
-                                 ),
-                               ),
-                             ),
-                           )
+                          TaskControls(
+                            level: widget.level,
+                            difficulty: widget.difficulty,
+                            onLevelUp: () {
+                              setState(() {
+                                widget.level += 1;
+                                TaskInherited.of(context).updateLevel(widget.level);
+                              });
+                            },
+                            onLevelDown: () {
+                              setState(() {
+                                widget.level -= 1;
+                                TaskInherited.of(context).updateLevel(widget.level);
+                              });
+                            },
+                          )
                          ],
                         ),
                     ),
@@ -122,7 +114,7 @@ class _TaskState extends State<Task> {
                     child: SizedBox(
                       width: 200,
                       child: LinearProgressIndicator(
-                        color: Colors.greenAccent,
+                        color: Colors.deepPurple,
                         value: (widget.difficulty > 0)
                             ? (widget.level / widget.difficulty) / 10
                             : 1,
