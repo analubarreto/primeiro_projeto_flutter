@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:primeiro_projeto/components/difficulty.dart';
+import 'package:primeiro_projeto/data/task_inherited.dart';
 
 class Task extends StatefulWidget {
   final String name;
   final String photo;
   final int difficulty;
+  late int level;
 
-  Task(this.name, this.photo, this.difficulty, {Key? key})
+  Task(this.name, this.photo, this.difficulty, this.level, {Key? key})
       : super(key: key);
-
-  int level = 0;
 
   @override
   State<Task> createState() => _TaskState();
@@ -89,8 +89,11 @@ class _TaskState extends State<Task> {
                              child: IconButton(
                                onPressed: () {
                                  setState(() {
-                                   if (widget.level < widget.difficulty * 10) widget.level += 1;
-                                 });
+                                   if (widget.level < widget.difficulty * 10) {
+                                      widget.level += 1;
+                                      TaskInherited.of(context).updateLevel(widget.level);
+                                   }
+                                });
                                },
                                icon: const Icon(Icons.arrow_drop_up),
                                color: Colors.green,

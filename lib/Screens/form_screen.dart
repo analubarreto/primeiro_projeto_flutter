@@ -40,7 +40,7 @@ class _FormScreenState extends State<FormScreen> {
                    child: Column(
                      children: [
                        Padding(
-                         padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                         padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                          child: TextFormField(
                            validator: (String? value) {
                              if (isNullOrEmpty(value)) return 'Insira o nome da Tarefa';
