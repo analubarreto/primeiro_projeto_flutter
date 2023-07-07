@@ -4,12 +4,13 @@ import 'package:primeiro_projeto/components/difficulty.dart';
 import 'package:primeiro_projeto/data/task_inherited.dart';
 
 class Task extends StatefulWidget {
+  late String id;
   final String name;
   final String photo;
   final int difficulty;
   late int level;
 
-  Task(this.name, this.photo, this.difficulty, this.level, {Key? key})
+  Task(this.id, this.name, this.photo, this.difficulty, this.level, {Key? key})
       : super(key: key);
 
   @override

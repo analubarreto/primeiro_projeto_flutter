@@ -16,6 +16,7 @@ class _InitialScreenState extends State<InitialScreen> {
   Widget build(BuildContext context) {
     final taskInherited = TaskInherited.of(context);
     List<Task> taskList = taskInherited.taskList;
+    bool isTaskListEmpty = taskList.isEmpty;
 
 
     return Scaffold(
@@ -32,22 +33,38 @@ class _InitialScreenState extends State<InitialScreen> {
                   width: 180,
                   child: LinearProgressIndicator(
                     color: Colors.deepPurple,
-                    value: taskInherited.totalLevel / 100,
+                    value: isTaskListEmpty ? 0 : taskInherited.totalLevel / 100,
                   ),
                 ),
                 const SizedBox(width: 10),
-                Text('${taskInherited.totalLevel.toStringAsFixed(2)}%'),
+                Text('${isTaskListEmpty ? 0 : taskInherited.totalLevel.toStringAsFixed(2)}%'),
                 IconButton(onPressed: () {
                   setState(() {
                     TaskInherited.of(context).calculateTotalLevel();
                   });
-                }, icon: const Icon(Icons.refresh)),
+                }, icon: const Icon(Icons.refresh),),
               ],
             ),
           ],
         )
       ),
-      body: ListView(
+      body: isTaskListEmpty ?
+          const Card(
+            child: Padding(
+              padding: EdgeInsets.only(right: 20, left: 20),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(Icons.assignment_late, size: 100, color: Colors.redAccent,),
+                  Text('Nenhuma tarefa cadastrada, clique no botão flutuante para cadastrar uma nova tarefa',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 14),),
+                ],
+              ),
+            ),
+          )
+          : ListView(
         padding: const EdgeInsets.only(top: 8, bottom: 70),
         children: taskList,
       ),
