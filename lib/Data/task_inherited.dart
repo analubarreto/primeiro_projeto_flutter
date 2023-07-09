@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:primeiro_projeto/components/task.dart';
 import 'package:uuid/uuid.dart';
 import 'package:uuid/uuid_util.dart';
+import 'package:primeiro_projeto/Data/task_dao.dart';
 
 class TaskInherited extends InheritedWidget {
   TaskInherited({
@@ -19,6 +20,7 @@ class TaskInherited extends InheritedWidget {
     var taskId = const Uuid().v4(options: {'rng': UuidUtil.cryptoRNG});
 
     Task newTask = Task(taskId, name, photo, difficulty, 0);
+
     taskList.add(newTask);
   }
 
