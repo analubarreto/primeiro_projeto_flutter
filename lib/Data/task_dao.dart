@@ -1,8 +1,6 @@
 import 'package:primeiro_projeto/components/task.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:primeiro_projeto/Data/database.dart';
-import 'package:uuid/uuid.dart';
-import 'package:uuid/uuid_util.dart';
 
 class TaskDao {
   static const String sqlTable = 'CREATE TABLE $_tableName('
@@ -33,9 +31,6 @@ class TaskDao {
       return;
     }
 
-    var taskId = Uuid().v4(options: {'rng': UuidUtil.cryptoRNG});
-    task.id = taskId;
-
     Map<String, dynamic> taskMap = _toMap(task);
 
     db.insert(_tableName, taskMap);
@@ -56,7 +51,7 @@ class TaskDao {
 
     final List<Map<String, dynamic>> tasksMap = await db.query(
       _tableName,
-      where: '$_name = ?',
+      where: '$_id = ?',
       whereArgs: [taskId],
     );
 
@@ -79,12 +74,13 @@ class TaskDao {
 
     for (Map<String, dynamic> row in taskMap) {
       final Task task = Task(
-        id: row[_id],
+        id: row[_id]?.toString(),
         name: row[_name],
         photo: row[_photo],
         difficulty: row[_difficulty],
-        level: row[_level],
+        level: row[_level] ?? row[_level],
       );
+
       tasks.add(task);
     }
 
@@ -95,6 +91,7 @@ class TaskDao {
     final Map<String, dynamic> taskMap = {};
 
     taskMap[_name] = task.name;
+    taskMap[_photo] = task.photo;
     taskMap[_difficulty] = task.difficulty;
     taskMap[_level] = task.level;
 

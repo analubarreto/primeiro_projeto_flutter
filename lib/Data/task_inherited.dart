@@ -1,34 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:primeiro_projeto/components/task.dart';
-import 'package:uuid/uuid.dart';
-import 'package:uuid/uuid_util.dart';
-import 'package:primeiro_projeto/Data/task_dao.dart';
 
 class TaskInherited extends InheritedWidget {
   TaskInherited({
     Key? key,
     required Widget child,
   }) : super(key: key, child: child) {
-    calculateTotalLevel();
+    calculateTotalLevel(taskList);
   }
 
   final List<Task> taskList = [];
 
   late double totalLevel = 0;
-
-  void newTask(String name, String photo, int difficulty) {
-    var taskId = const Uuid().v4(options: {'rng': UuidUtil.cryptoRNG});
-
-    Task newTask = Task(
-      id: taskId,
-      name: name,
-      difficulty: difficulty,
-      photo: photo,
-      level: 0,
-    );
-
-    taskList.add(newTask);
-  }
 
   void updateLevel(int? level) {
     for (var element in taskList) {

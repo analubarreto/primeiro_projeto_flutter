@@ -5,19 +5,20 @@ import 'package:primeiro_projeto/data/task_inherited.dart';
 
 class Task extends StatefulWidget {
   late String? id;
-  final String name = '';
-  final String photo = '';
-  final int difficulty = 0;
-  late int? level = 0;
+  final String name;
+  final String photo;
+  final int difficulty;
+  late int? level;
 
   Task({
-    String? id,
-    required String name,
-    required String photo,
-    required int difficulty,
-    int? level,
+    this.id,
+    required  this.name,
+    required  this.photo,
+    required  this.difficulty,
+    this.level,
     super.key}) {
     level = level ?? 0;
+    id = id ?? '';
   }
 
   @override
@@ -97,14 +98,18 @@ class _TaskState extends State<Task> {
                             difficulty: widget.difficulty,
                             onLevelUp: () {
                               setState(() {
-                                widget.level = widget.level! + 1;
-                                TaskInherited.of(context).updateLevel(widget.level);
+                                if (widget.level != null) {
+                                  widget.level = widget.level! + 1;
+                                  TaskInherited.of(context).updateLevel(widget.level);
+                                }
                               });
                             },
                             onLevelDown: () {
                               setState(() {
-                                widget.level = widget.level! - 1;
-                                TaskInherited.of(context).updateLevel(widget.level);
+                                if (widget.level != null) {
+                                  widget.level = widget.level! - 1;
+                                  TaskInherited.of(context).updateLevel(widget.level);
+                                }
                               });
                             },
                           )

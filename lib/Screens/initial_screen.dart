@@ -17,7 +17,7 @@ class _InitialScreenState extends State<InitialScreen> {
   @override
   Widget build(BuildContext context) {
     final taskInherited = TaskInherited.of(context);
-    List<Task> taskList = taskInherited.taskList;
+    List<Task> taskList = [];
     bool isTaskListEmpty = taskList.isEmpty;
     TaskDao taskDao = TaskDao();
 
@@ -41,7 +41,8 @@ class _InitialScreenState extends State<InitialScreen> {
                 ),
                 const SizedBox(width: 10),
                 Text('${isTaskListEmpty ? 0 : taskInherited.totalLevel.toStringAsFixed(2)}%'),
-                IconButton(onPressed: () {
+                IconButton(onPressed: () async {
+                  taskList = await taskDao.findAll();
                   setState(() {
                     TaskInherited.of(context).calculateTotalLevel();
                   });
@@ -57,10 +58,14 @@ class _InitialScreenState extends State<InitialScreen> {
             builder: (context, snapshot) {
               List<Task>? items = snapshot.data;
               switch(snapshot.connectionState) {
-                case ConnectionState.none || ConnectionState.waiting || ConnectionState.active:
+                case ConnectionState.none:
+                  return const Center(child: CircularProgressIndicator());
+                case ConnectionState.waiting:
+                  return const Center(child: CircularProgressIndicator());
+                case ConnectionState.active:
                   return const Center(child: CircularProgressIndicator());
                 case ConnectionState.done:
-                  if (items!.isNotEmpty && snapshot.hasData) {
+                  if (snapshot.hasData && items!.isNotEmpty) {
                     return ListView.builder(
                       itemCount: items.length,
                       itemBuilder: (context, index) {
@@ -106,7 +111,7 @@ class _InitialScreenState extends State<InitialScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushNamed('/form');
+          Navigator.of(context).pushNamed('/form').then((value) => setState(() {}));
         },
         child: const Icon(Icons.add),
       ),

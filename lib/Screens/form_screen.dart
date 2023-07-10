@@ -120,19 +120,16 @@ class _FormScreenState extends State<FormScreen> {
                   Padding(
                     padding: const EdgeInsets.only(top: 20),
                     child: ElevatedButton(
-                      onPressed: () async {
+                      onPressed: () {
                         if(_formKey.currentState!.validate()) {
                           Task task = Task(
                             name: nameController.text,
                             photo: imageController.text,
                             difficulty: int.parse(difficultyController.text),
                           );
-                          await taskDao.save(task);
-                          TaskInherited.of(context).newTask(
-                            nameController.text,
-                            imageController.text,
-                            int.parse(difficultyController.text),
-                          );
+                          print('${task.name}, ${task.photo}, ${task.difficulty}');
+                          taskDao.save(task);
+
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('Tarefa Adicionada!'),
