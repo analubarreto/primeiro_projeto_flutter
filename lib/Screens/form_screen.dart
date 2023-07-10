@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:primeiro_projeto/data/task_inherited.dart';
+import 'package:primeiro_projeto/components/task.dart';
+
+import 'package:primeiro_projeto/Data/task_dao.dart';
 
 class FormScreen extends StatefulWidget {
 
@@ -21,6 +24,9 @@ class _FormScreenState extends State<FormScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    TaskDao taskDao = TaskDao();
+
     return Form(
       key: _formKey,
       child: Scaffold(
@@ -114,8 +120,14 @@ class _FormScreenState extends State<FormScreen> {
                   Padding(
                     padding: const EdgeInsets.only(top: 20),
                     child: ElevatedButton(
-                      onPressed: () {
+                      onPressed: () async {
                         if(_formKey.currentState!.validate()) {
+                          Task task = Task(
+                            name: nameController.text,
+                            photo: imageController.text,
+                            difficulty: int.parse(difficultyController.text),
+                          );
+                          await taskDao.save(task);
                           TaskInherited.of(context).newTask(
                             nameController.text,
                             imageController.text,

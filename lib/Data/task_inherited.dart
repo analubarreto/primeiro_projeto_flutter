@@ -19,18 +19,24 @@ class TaskInherited extends InheritedWidget {
   void newTask(String name, String photo, int difficulty) {
     var taskId = const Uuid().v4(options: {'rng': UuidUtil.cryptoRNG});
 
-    Task newTask = Task(taskId, name, photo, difficulty, 0);
+    Task newTask = Task(
+      id: taskId,
+      name: name,
+      difficulty: difficulty,
+      photo: photo,
+      level: 0,
+    );
 
     taskList.add(newTask);
   }
 
-  void updateLevel(int level) {
+  void updateLevel(int? level) {
     for (var element in taskList) {
-      if (element.level > element.difficulty * 10) element.level = element.difficulty * 10;
+      if (element.level! > element.difficulty * 10) element.level = element.difficulty * 10;
     }}
 
   void calculateTotalLevel() {
-    double listLevel = taskList.fold(0, (previousValue, element) => previousValue + element.level);
+    double listLevel = taskList.fold(0, (previousValue, element) => previousValue + element.level!);
     double totalDifficulty = taskList.fold(0, (previousValue, element) => previousValue + element.difficulty);
     totalLevel = (listLevel / (totalDifficulty * 10)) * 100;
   }

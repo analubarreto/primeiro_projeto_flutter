@@ -51,7 +51,7 @@ class TaskDao {
     return tasks;
   }
 
-  Future<List<Task>> find(String taskId) async {
+  Future<List<Task>> find(String? taskId) async {
     final Database db = await getDataBase();
 
     final List<Map<String, dynamic>> tasksMap = await db.query(
@@ -79,11 +79,11 @@ class TaskDao {
 
     for (Map<String, dynamic> row in taskMap) {
       final Task task = Task(
-        row[_id],
-        row[_name],
-        row[_photo],
-        row[_difficulty],
-        row[_level],
+        id: row[_id],
+        name: row[_name],
+        photo: row[_photo],
+        difficulty: row[_difficulty],
+        level: row[_level],
       );
       tasks.add(task);
     }

@@ -4,14 +4,21 @@ import 'package:primeiro_projeto/components/difficulty.dart';
 import 'package:primeiro_projeto/data/task_inherited.dart';
 
 class Task extends StatefulWidget {
-  late String id;
-  final String name;
-  final String photo;
-  final int difficulty;
-  late int level;
+  late String? id;
+  final String name = '';
+  final String photo = '';
+  final int difficulty = 0;
+  late int? level = 0;
 
-  Task(this.id, this.name, this.photo, this.difficulty, this.level, {Key? key})
-      : super(key: key);
+  Task({
+    String? id,
+    required String name,
+    required String photo,
+    required int difficulty,
+    int? level,
+    super.key}) {
+    level = level ?? 0;
+  }
 
   @override
   State<Task> createState() => _TaskState();
@@ -90,13 +97,13 @@ class _TaskState extends State<Task> {
                             difficulty: widget.difficulty,
                             onLevelUp: () {
                               setState(() {
-                                widget.level += 1;
+                                widget.level = widget.level! + 1;
                                 TaskInherited.of(context).updateLevel(widget.level);
                               });
                             },
                             onLevelDown: () {
                               setState(() {
-                                widget.level -= 1;
+                                widget.level = widget.level! - 1;
                                 TaskInherited.of(context).updateLevel(widget.level);
                               });
                             },
@@ -117,7 +124,7 @@ class _TaskState extends State<Task> {
                       child: LinearProgressIndicator(
                         color: Colors.deepPurple,
                         value: (widget.difficulty > 0)
-                            ? (widget.level / widget.difficulty) / 10
+                            ? (widget.level! / widget.difficulty) / 10
                             : 1,
                       ),
                     ),

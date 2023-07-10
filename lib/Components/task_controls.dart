@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 class TaskControls extends StatefulWidget {
   final Function onLevelUp;
   final Function onLevelDown;
-  final int level;
+  final int? level;
   final int difficulty;
 
   TaskControls({
     super.key,
     required this.onLevelUp,
     required this.onLevelDown,
-    required this.level,
+    this.level,
     required this.difficulty
   });
 
@@ -24,7 +24,7 @@ class _TaskControlsState extends State<TaskControls> {
       return Column(
         children: [
            IconButton(
-             onPressed: () => widget.level < widget.difficulty * 10 ? widget.onLevelUp() : null,
+             onPressed: () => widget.level! < widget.difficulty * 10 ? widget.onLevelUp() : null,
              icon: const Icon(Icons.arrow_drop_up),
              color: Colors.green,
              style: ButtonStyle(
@@ -38,7 +38,7 @@ class _TaskControlsState extends State<TaskControls> {
              ),
            ),
          IconButton(
-           onPressed: () => widget.level > 0 ? widget.onLevelDown() : null,
+           onPressed: () => widget.level! > 0 ? widget.onLevelDown() : null,
            icon: const Icon(Icons.arrow_drop_down),
            color: Colors.redAccent,
            style: ButtonStyle(

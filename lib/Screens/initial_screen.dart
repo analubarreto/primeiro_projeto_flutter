@@ -84,8 +84,7 @@ class _InitialScreenState extends State<InitialScreen> {
                       ),
                     );
                   }
-                  return const Card(
-                    child: Padding(
+                  return const Padding(
                       padding: EdgeInsets.only(right: 20, left: 20),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -98,8 +97,7 @@ class _InitialScreenState extends State<InitialScreen> {
                           ),
                         ],
                       ),
-                    ),
-                  );
+                    );
 
               }
             },
