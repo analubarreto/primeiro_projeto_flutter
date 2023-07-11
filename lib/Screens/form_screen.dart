@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:primeiro_projeto/data/task_inherited.dart';
 import 'package:primeiro_projeto/components/task.dart';
 
 import 'package:primeiro_projeto/Data/task_dao.dart';
@@ -127,7 +126,6 @@ class _FormScreenState extends State<FormScreen> {
                             photo: imageController.text,
                             difficulty: int.parse(difficultyController.text),
                           );
-                          print('${task.name}, ${task.photo}, ${task.difficulty}');
                           taskDao.save(task);
 
                           ScaffoldMessenger.of(context).showSnackBar(

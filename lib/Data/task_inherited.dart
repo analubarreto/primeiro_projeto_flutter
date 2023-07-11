@@ -6,7 +6,7 @@ class TaskInherited extends InheritedWidget {
     Key? key,
     required Widget child,
   }) : super(key: key, child: child) {
-    calculateTotalLevel(taskList);
+    calculateTotalLevel();
   }
 
   final List<Task> taskList = [];

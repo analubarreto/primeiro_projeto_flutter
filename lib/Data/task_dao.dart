@@ -58,7 +58,7 @@ class TaskDao {
     return _toList(tasksMap);
   }
 
-  delete(String taskId) async {
+  delete(String? taskId) async {
     final Database db = await getDataBase();
 
     db.delete(
