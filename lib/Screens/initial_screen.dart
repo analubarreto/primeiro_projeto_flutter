@@ -5,6 +5,9 @@ import 'package:primeiro_projeto/components/task.dart';
 
 import 'package:primeiro_projeto/Data/task_dao.dart';
 
+import 'package:primeiro_projeto/Components/ListStates/empty.dart';
+import 'package:primeiro_projeto/Components/ListStates/error.dart';
+
 class InitialScreen extends StatefulWidget {
 
   const InitialScreen({Key? key}) : super(key: key);
@@ -14,11 +17,12 @@ class InitialScreen extends StatefulWidget {
 }
 
 class _InitialScreenState extends State<InitialScreen> {
+  bool isTaskListEmpty = true;
+
   @override
   Widget build(BuildContext context) {
     final taskInherited = TaskInherited.of(context);
-    List<Task> taskList = [];
-    bool isTaskListEmpty = taskList.isEmpty;
+    List<Task>? taskList = [];
     TaskDao taskDao = TaskDao();
 
 
@@ -75,34 +79,13 @@ class _InitialScreenState extends State<InitialScreen> {
                     );
                   }
                   if (snapshot.hasError) {
-                    return const Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(Icons.error, size: 100, color: Colors.redAccent,),
-                          Text('Erro ao carregar as tarefas, tente novamente mais tarde',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 14),
-                          ),
-                        ],
-                      ),
-                    );
+                    return const ErrorState();
                   }
-                  return const Padding(
-                      padding: EdgeInsets.only(right: 20, left: 20),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Icon(Icons.assignment_late, size: 100, color: Colors.redAccent,),
-                          Text('Nenhuma tarefa cadastrada, clique no botão flutuante para cadastrar uma nova tarefa',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 14),
-                          ),
-                        ],
-                      ),
-                    );
+                  setState(() {
+                    isTaskListEmpty = false;
+                    taskList = items;
+                  });
+                  return const EmptyState();
 
               }
             },
@@ -111,7 +94,7 @@ class _InitialScreenState extends State<InitialScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).pushNamed('/form').then((value) => setState(() {}));
+          Navigator.of(context).pushNamed('/form');
         },
         child: const Icon(Icons.add),
       ),
