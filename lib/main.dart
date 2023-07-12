@@ -20,10 +20,16 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.deepPurple,
       ),
       initialRoute: '/',
-      routes: {
-        '/': (context) => const InitialScreen(),
-        '/form': (context) => const FormScreen(),
-      }
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/':
+            return MaterialPageRoute(builder: (context) => const InitialScreen());
+          case '/form':
+            return MaterialPageRoute(builder: (context) => const FormScreen());
+          default:
+            return MaterialPageRoute(builder: (context) => const InitialScreen());
+        }
+      },
     ),
     );
   }

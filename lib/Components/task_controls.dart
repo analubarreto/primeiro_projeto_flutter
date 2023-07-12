@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 
+import 'package:primeiro_projeto/Data/task_dao.dart';
+
 class TaskControls extends StatefulWidget {
   final Function onLevelUp;
   final Function onLevelDown;
   final int? level;
   final int difficulty;
+  final int? id;
 
   TaskControls({
     super.key,
     required this.onLevelUp,
     required this.onLevelDown,
     this.level,
-    required this.difficulty
+    required this.difficulty,
+    this.id,
   });
 
   @override

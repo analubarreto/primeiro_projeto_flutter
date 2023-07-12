@@ -125,6 +125,7 @@ class _FormScreenState extends State<FormScreen> {
                             name: nameController.text,
                             photo: imageController.text,
                             difficulty: int.parse(difficultyController.text),
+                            level: 0,
                           );
                           taskDao.save(task);
 

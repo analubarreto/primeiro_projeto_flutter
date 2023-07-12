@@ -21,7 +21,9 @@ class TaskDao {
     final Database db = await getDataBase();
 
     bool taskExists = await find(task.id).then((value) => value.isNotEmpty);
+    print(taskExists);
     if (taskExists) {
+      print(task.id);
       db.update(
         _tableName,
         _toMap(task),
@@ -36,6 +38,16 @@ class TaskDao {
     db.insert(_tableName, taskMap);
   }
 
+  updateLevel(int id, int? level) async {
+    final Database db = await getDataBase();
+
+    db.rawUpdate(
+      'UPDATE $_tableName SET $_level = ? WHERE $_id = ?',
+      [level, id],);
+
+    print(level);
+  }
+
   Future<List<Task>> findAll() async {
     final Database db = await getDataBase();
 
@@ -46,7 +58,7 @@ class TaskDao {
     return tasks;
   }
 
-  Future<List<Task>> find(String? taskId) async {
+  Future<List<Task>> find(int? taskId) async {
     final Database db = await getDataBase();
 
     final List<Map<String, dynamic>> tasksMap = await db.query(
@@ -58,7 +70,7 @@ class TaskDao {
     return _toList(tasksMap);
   }
 
-  delete(String? taskId) async {
+  delete(int? taskId) async {
     final Database db = await getDataBase();
 
     db.delete(
@@ -74,7 +86,7 @@ class TaskDao {
 
     for (Map<String, dynamic> row in taskMap) {
       final Task task = Task(
-        id: row[_id]?.toString(),
+        id: row[_id],
         name: row[_name],
         photo: row[_photo],
         difficulty: row[_difficulty],

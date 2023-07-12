@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:primeiro_projeto/Data/task_dao.dart';
 
 class DeleteDialog extends StatelessWidget {
-  late String? id;
+  late int? id;
   final BuildContext dialogContext;
 
   DeleteDialog({ this.id, required this.dialogContext, super.key});
